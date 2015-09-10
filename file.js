@@ -105,7 +105,7 @@ rects.processUrlParams= function(){
 
 };
 rects.sendUrlParams = function(rect){
-	var query = "index.php?";
+	var query = "index.html?";
 	for(var i=0; i<rects.length; i++){
 		
 		
