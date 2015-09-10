@@ -15,7 +15,7 @@ currently on version 0.0.2 still in development.
 
 ->furniture-data/
 |-->file.js
-|-->index.php
+|-->index.html
 ```
 
 this version is written with the aid of jquery, and a html5 canvas library named fabric.js. 
