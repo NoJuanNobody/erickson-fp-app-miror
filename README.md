@@ -1,6 +1,4 @@
-# README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
 ### What is this repository for? ###
 
@@ -31,4 +29,4 @@ the basic idea of what the javascript code is doing is that. first it looks for 
 
 eventually these squares should contain images of actual furniture, and the background will be a floorplan. 
 
-for the moment this is a proof of concept. 
+for the moment this is a proof of concept.
