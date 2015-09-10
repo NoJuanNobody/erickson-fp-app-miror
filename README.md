@@ -1,11 +1,8 @@
-
-
 ### What is this repository for? ###
 
-* Quick summary
 this is an app that will eventually take a floor plan and allow you to arange furniture on it. you will be able to share the link with your friends and then colaborate together, as long as the url link is not lost. 
 
-* Version
+## Version ##
 currently on version 0.0.2 still in development. 
 
 ### How do I get set up? ###
