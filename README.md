@@ -7,7 +7,7 @@ currently on version 0.0.2 still in development.
 
 ### How do I get set up? ###
 
-*what you need to get started is to clone this repo to your local machine. one of the branches includes ajax calls, this is the reason why some of this repo is in php: to handle server side code. the latest branch/version is entirely javascript so you will need the following files 
+*what you need to get started is to clone this repo to your local machine. clone from the javascript-url-params1.0.0 branch. one of the branches includes ajax calls, this is the reason why some of this repo is in php: to handle server side code. the latest branch/version is entirely javascript so you will need the following files 
 
 
 ```
