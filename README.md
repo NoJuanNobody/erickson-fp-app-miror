@@ -7,9 +7,9 @@ there are four versions in this repo
 
 the master branch has a working version of the technology stack, which involves ```html```, ```javascript```, ```jquery```, and a library called ```fabric.js```
 
-branch ```ajax-php1.0.0``` is a deprecated version of the app that uses ```mysql``` and ajax calls to save data, you will have to set up a database to run properly
+branch ```ajax-php1.0.0``` is a deprecated version of the app that uses ```mysql``` and ajax calls to save data, you will have to set up a database to run it properly
 
-branches named ``` javascript-url-params``` with a release number behind them are the latest builds of the web app, and are generally unstable. release ```1.0.1``` is an earlier version which uses colored squares to represent furniture. realease ```1.0.0``` (while should be the earlier version) is under active development and will eventually support images instead of representative colored squares
+branches named ``` js-url-*``` with a release number behind them are the latest builds of the web app, and are generally unstable. release ```0.0.1``` is an earlier version which uses colored squares to represent furniture. release ```0.0.2``` is under active development and will eventually support images instead of representative colored squares
 
 
 ### How do I get set up? ###
