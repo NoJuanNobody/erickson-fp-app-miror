@@ -3,79 +3,91 @@ $(document).ready(function(){
 
 var canvas = new fabric.Canvas('c');
 
-canvas.setHeight(500);
-canvas.setWidth(800);
-
-var rects = [];
+canvas.setHeight(1100);
+canvas.setWidth(1000);
+// creating array to store objs
+var objs = [];
 
 var count=0;
-canvas.on('object:moving', function(){
-		console.log('translating: '+rect.getLeft()+','+rect.getTop());
-});
-canvas.on('object:rotating',function(){
-	console.log("rotating: "+rect.getAngle());
-});
-canvas.on('object:scaling', function(){
-	console.log('scale x: '+ rect.getScaleX()+','+'scale y: '+rect.getScaleY());
+
+
+var background=fabric.Image.fromURL('brighton.png', function(oImg) {
+	oImg.left = 100;
+	oImg.top = 50;
+	oImg.set('selectable', false);
+  canvas.add(oImg);
+  canvas.sendToBack(oImg);
 });
 
 function nameSpacing(obj){
-	return obj.fill+'_'+obj.type+Math.round((10000*Math.random()));
+	return obj.fill+'_'+obj.url+Math.round((10000*Math.random()));
 }
+function whichObject(type){
+	if(type == 'Chair'){
+		url = 'c.png';
+	}else if(type == 'Couch'){
+		url = 'T.png';
+	}else{
+		url = 'h.png';
+	}
+	return url;
+}
+
 function newCouch(x,y){
 	// event.preventDefault();
 	type = $('select option:selected').text();
-	var fill;
-	if(type == 'Chair'){
-		fill = 'blue';
-	}else if(type == 'Couch'){
-		fill = 'green';
-	}else{
-		fill = 'red';
-	}
+	var url;
+	// this part of the code will decide what types of furniture is rendered to the canvas and can be modified later
+	url = whichObject(type);
 	count++;
-	rect= new fabric.Rect({
-  left: 100,
-  top: 100,
-  fill: fill,
-  width: 20,
-  height: 20,
-});
-	rect.name = nameSpacing(rect);
-	rects.push(rect);
-	console.log(rects);
-	canvas.add(rect).setActiveObject(rect);
+	var img= new  fabric.Image.fromURL(url,function(oImg){
+		oImg.left=100;
+		oImg.Top=100;
+		oImg.url=url;
+		oImg.width=100;
+		oImg.height=100;
+		canvas.add(oImg).setActiveObject(oImg);
+		canvas.on('object:moving', function(){
+				console.log('translating: '+oImg.getLeft()+','+oImg.getTop());
+		canvas.on('object:rotating',function(){
+			console.log("rotating: "+oImg.getAngle());
+		});
+		canvas.on('object:scaling', function(){
+			console.log('scale x: '+ oImg.getScaleX()+','+'scale y: '+oImg.getScaleY());
+		});
+		
+		});
+		objs.push(oImg);
+		console.log(objs);
+	});
 }
+// this function creates objects out of all the old data
 function oldCouch(x,y,xScale,yScale,angle,type){
 	// event.preventDefault();
-	if(type == 'blue'){
-		fill = 'blue';
-	}else if(type == 'green'){
-		fill = 'green';
-	}else{
-		fill = 'red';
-	}
+	url=whichObject(type);
 	count++;
-	rect= new fabric.Rect({
-  left: x,
-  top: y,
-  scaleX: xScale,
-  scaleY: yScale,
-  fill: fill,
-  angle: angle,
-  width: 20,
-  height: 20,
-});
-	rect.name = nameSpacing(rect);
-	rects.push(rect);
-	console.log(rects);
-	canvas.add(rect).setActiveObject(rect);
+	var img= new fabric.Image.fromURL(url,function(oImg){
+		oImg.left=x;
+		oImg.Top=y;
+		oImg.url=url;
+		oImg.scaleX=xScale;
+		oImg.scaleY=yScale;
+		oImg.width=100;
+		oImg.height=100;
+		canvas.add(oImg).setActiveObject(oImg);
+	});
+	
+	
+	objs.push(img);
+	console.log(objs);
+	
 }
-rects.recieveUrlParams = function(){
+objs.recieveUrlParams = function(){
 
 	var query = window.location.search.substring(1);
+	console.log(query);
        var queries = query.split("-");
-       queries.pop();
+       // queries.pop();
        console.log(queries);
 				for(var k=0; k<queries.length;k++){
 
@@ -96,41 +108,33 @@ rects.recieveUrlParams = function(){
 						
 					}
 					oldCouch(params[0],params[1],params[2],params[3],params[4],params[5]);
+				
 				}
-       
-					 
 };
-rects.recieveUrlParams();
-rects.processUrlParams= function(){
 
-};
-rects.sendUrlParams = function(rect){
+
+objs.recieveUrlParams();
+
+objs.sendUrlParams = function(){
+	console.log('test');
 	var query = "index.html?";
-	for(var i=0; i<rects.length; i++){
+	for(var i=0; i<objs.length; i++){
 		
+		query += "x"+i+"="+this[i].left+"&y"+i+"="+this[i].top+"&xScale"+i+"="+this[i].scaleX+"&yScale"+i+"="+this[i].scaleY+"&angle"+i+"="+this[i].angle+"&img"+i+"="+this[i].url+'-';
 		
-		// var x=this[i].left;
-		// var y=this[i].top;
-		// var xScale=this[i].scaleX;
-		// var yScale=this[i].scaleY;
-		// var rotation=this[i].angle;
-		// var type=this[i].type;
-		// var name=this[i].name;
-		
-		query += "x"+i+"="+this[i].left+"&y"+i+"="+this[i].top+"&xScale"+i+"="+this[i].scaleX+"&yScale"+i+"="+this[i].scaleY+"&angle"+i+"="+this[i].angle+"&type"+i+"="+this[i].fill+"&name"+i+"="+this[i].name+"-";
-		console.log(query);
 		window.location.href =query;
 		console.log(window.location.href);
-		// create query string for url
+		
 	}
-
+console.log(query);
 };
 
 	$('.couch').on('click', newCouch);
 
 	$('.data').on('click', function(){
 		event.preventDefault();
-		rects.sendUrlParams();
+		objs.sendUrlParams();
 
 	});
+
 });
