@@ -23,9 +23,9 @@ function nameSpacing(obj){
 	return obj.fill+'_'+obj.url+Math.round((10000*Math.random()));
 }
 function whichObject(type){
-	if(type == 'Chair'){
+	if(type == 'c.png'| type=="Chair"){
 		url = 'c.png';
-	}else if(type == 'Couch'){
+	}else if(type == 'T.png'|type=="Table"){
 		url = 'T.png';
 	}else{
 		url = 'h.png';
@@ -49,6 +49,7 @@ function newCouch(x,y){
 		canvas.add(oImg).setActiveObject(oImg);
 		canvas.on('object:moving', function(){
 				console.log('translating: '+oImg.getLeft()+','+oImg.getTop());
+		});
 		canvas.on('object:rotating',function(){
 			console.log("rotating: "+oImg.getAngle());
 		});
@@ -56,7 +57,7 @@ function newCouch(x,y){
 			console.log('scale x: '+ oImg.getScaleX()+','+'scale y: '+oImg.getScaleY());
 		});
 		
-		});
+		
 		objs.push(oImg);
 		console.log(objs);
 	});
@@ -64,52 +65,60 @@ function newCouch(x,y){
 // this function creates objects out of all the old data
 function oldCouch(x,y,xScale,yScale,angle,type){
 	// event.preventDefault();
+
 	url=whichObject(type);
 	count++;
 	var img= new fabric.Image.fromURL(url,function(oImg){
 		oImg.left=x;
-		oImg.Top=y;
+		oImg.top=y;
 		oImg.url=url;
 		oImg.scaleX=xScale;
 		oImg.scaleY=yScale;
 		oImg.width=100;
 		oImg.height=100;
 		canvas.add(oImg).setActiveObject(oImg);
+		canvas.on('object:moving', function(){
+				console.log('translating: '+oImg.getLeft()+','+oImg.getTop());
+		});
+		canvas.on('object:rotating',function(){
+			console.log("rotating: "+oImg.getAngle());
+		});
+		canvas.on('object:scaling', function(){
+			console.log('scale x: '+ oImg.getScaleX()+','+'scale y: '+oImg.getScaleY());
+		});
+		objs.push(oImg);
+		console.log(objs);
 	});
-	
-	
-	objs.push(img);
-	console.log(objs);
-	
 }
 objs.recieveUrlParams = function(){
 
 	var query = window.location.search.substring(1);
 	console.log(query);
-       var queries = query.split("-");
-       // queries.pop();
-       console.log(queries);
-				for(var k=0; k<queries.length;k++){
+ var queries = query.split("-");
+ queries.pop();
+ console.log(queries);
+	for(var k=0; k<queries.length;k++){
 
-					vars =  queries[k].split('&');
-				
-					console.log(vars);
-					var params=[];
-					for(var i=0;i<vars.length;i++){
+		vars =  queries[k].split('&');
+	
+		console.log(vars);
+		var params=[];
+		for(var i=0;i<vars.length;i++){
 
-						if(isNaN(parseFloat(vars[i].replace(/\b\w+=/,'')))){
-							console.log('success');
-							params[i] = vars[i].replace(/\b\w+=/,'');
-						}else{
-							console.log('whoops');
-							params[i] = parseFloat(vars[i].replace(/\b\w+=/,''));
-						}
-						console.log(params);
-						
-					}
-					oldCouch(params[0],params[1],params[2],params[3],params[4],params[5]);
-				
-				}
+			if(isNaN(parseFloat(vars[i].replace(/\b\w+=/,'')))){
+				console.log('success');
+				params[i] = vars[i].replace(/\b\w+=/,'');
+			}else{
+				console.log('whoops');
+				params[i] = parseFloat(vars[i].replace(/\b\w+=/,''));
+			}
+			console.log(params);
+			
+		}
+		if(query !== ""){
+			oldCouch(params[0],params[1],params[2],params[3],params[4],params[5]);
+		}
+	}
 };
 
 
