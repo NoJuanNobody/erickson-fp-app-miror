@@ -3,8 +3,8 @@ $(document).ready(function(){
 
 var canvas = new fabric.Canvas('c');
 
-canvas.setHeight(1100);
-canvas.setWidth(1000);
+canvas.setHeight(1038);
+canvas.setWidth(760);
 // creating array to store objs
 var objs = [];
 
@@ -12,8 +12,8 @@ var count=0;
 
 
 var background=fabric.Image.fromURL('brighton.png', function(oImg) {
-	oImg.left = 100;
-	oImg.top = 50;
+	oImg.left = 0;
+	oImg.top = 0;
 	oImg.set('selectable', false);
   canvas.add(oImg);
   canvas.sendToBack(oImg);
